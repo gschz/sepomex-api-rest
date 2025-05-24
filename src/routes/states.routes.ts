@@ -1,44 +1,76 @@
 /**
- * Rutas para el manejo de estados
+ * Rutas para el manejo de estados.
+ * Define los endpoints relacionados con la consulta de estados y sus relaciones.
  * @module StatesRoutes
  */
 
-import { Router } from "express";
-import * as statesController from "../controllers/states.controller.js";
-import type { StateController } from "../types/index.js";
+import * as statesController from '@/controllers/states.controller';
+import { Elysia, t } from 'elysia';
 
-const router: Router = Router();
-
-/**
- * Rutas principales de estados
- */
-
-// Obtener todos los estados
-router.get("/", statesController.getAllStates); // /api/v1/states
-
-// Obtener estado específico
-router.get<StateController["Params"]>("/:id", statesController.getStateById); // /api/v1/states/07
+const states = new Elysia({ prefix: '/states' });
 
 /**
- * Rutas para relaciones de estados
+ * Esquemas de validación para los parámetros de ruta utilizando TypeBox.
+ */
+const stateParamsSchema = t.Object({
+   id: t.String({
+      pattern: '^[0-9]{2}$',
+      error: 'El código de estado debe ser un número de 2 dígitos',
+   }),
+});
+
+/**
+ * Define las rutas principales para la gestión de estados.
  */
 
-// Obtener ciudades de un estado
-router.get<StateController["Params"]>(
-	"/:id/cities",
-	statesController.getCitiesByState,
-); // /api/v1/states/07/cities
+/**
+ * GET /states
+ * Obtiene todos los estados.
+ */
+states.get('/', statesController.getAllStates);
 
-// Obtener municipios de un estado
-router.get<StateController["Params"]>(
-	"/:id/municipios",
-	statesController.getMunicipiosByState,
-); // /api/v1/states/07/municipios
+/**
+ * GET /states/:id
+ * Obtiene un estado específico por su ID.
+ *
+ * @param params - Parámetro de ruta conteniendo `id` del estado.
+ */
+states.get('/:id', (context) => statesController.getStateById(context), {
+   params: stateParamsSchema,
+});
 
-// Obtener asentamientos de un estado
-router.get<StateController["Params"]>(
-	"/:id/asentamientos",
-	statesController.getAsentamientosByState,
-); // /api/v1/states/07/asentamientos
+/**
+ * Define las rutas para obtener relaciones de estados.
+ */
 
-export default router;
+/**
+ * GET /states/:id/cities
+ * Obtiene todas las ciudades de un estado específico.
+ *
+ * @param params - Parámetro de ruta conteniendo `id` del estado.
+ */
+states.get('/:id/cities', (context) => statesController.getCitiesByState(context), {
+   params: stateParamsSchema,
+});
+
+/**
+ * GET /states/:id/municipios
+ * Obtiene todos los municipios de un estado específico.
+ *
+ * @param params - Parámetro de ruta conteniendo `id` del estado.
+ */
+states.get('/:id/municipios', (context) => statesController.getMunicipiosByState(context), {
+   params: stateParamsSchema,
+});
+
+/**
+ * GET /states/:id/asentamientos
+ * Obtiene todos los asentamientos (colonias) de un estado específico.
+ *
+ * @param params - Parámetro de ruta conteniendo `id` del estado.
+ */
+states.get('/:id/asentamientos', (context) => statesController.getAsentamientosByState(context), {
+   params: stateParamsSchema,
+});
+
+export default states;
