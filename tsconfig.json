@@ -1,39 +1,42 @@
 {
-	"compilerOptions": {
-		/* Configuración Base */
-		"target": "ES2020",
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext",
-		"lib": ["ES2020"],
+   "compilerOptions": {
+      /* Configuración Base */
+      "target": "ES2020",
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "lib": ["ES2020"],
 
-		/* Estructura del Proyecto */
-		"rootDir": "./src",
-		"outDir": "./dist",
-		"baseUrl": "./",
+      /* Estructura del Proyecto */
+      "rootDir": "./src",
+      "outDir": "./dist",
+      "baseUrl": ".",
+      "paths": {
+         "@/*": ["src/*"]
+      },
 
-		/* Strict Type-Checking */
-		"strict": true,
-		"noImplicitAny": true,
-		"strictNullChecks": true,
-		"strictFunctionTypes": true,
-		"strictBindCallApply": true,
+      /* Strict Type-Checking */
+      "strict": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true,
 
-		/* Módulos */
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
+      /* Módulos */
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
 
-		/* Avanzado */
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
+      /* Avanzado */
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": true,
 
-		/* Source Maps */
-		"sourceMap": true,
+      /* Source Maps */
+      "sourceMap": true,
 
-		/* Experimental */
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true
-	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", "dist", "**/*.spec.ts"]
+      /* Experimental */
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true
+   },
+   "include": ["src/**/*.ts"],
+   "exclude": ["node_modules", "dist", "**/*.spec.ts"]
 }
