@@ -1,52 +1,113 @@
 /**
- * Rutas para el manejo de códigos postales
+ * Rutas para el manejo de códigos postales.
+ * Define los endpoints relacionados con la consulta de información de códigos postales.
  * @module PostalRoutes
  */
 
-import { Router } from "express";
-import * as postalController from "../controllers/postal.controller.js";
-import type { PostalController } from "../types/index.js";
+import * as postalController from '@/controllers/postal.controller';
+import type { PostalController } from '@/types';
+import { Elysia, t } from 'elysia';
 
-const router: Router = Router();
-
-/**
- * Búsquedas principales
- */
-
-// Búsqueda por nombre de asentamiento
-router.get<
-	Record<string, never>, // Params
-	unknown, // Response
-	Record<string, never>, // Request body
-	PostalController["SearchQuery"] // Query params
->("/search", postalController.searchByName); // /api/postal/search?q=centro
-
-// Búsqueda por código postal específico
-router.get<PostalController["PostalParams"]>(
-	"/codigo/:codigo",
-	postalController.getByPostalCode,
-); // /api/postal/codigo/45050
+const postal = new Elysia({ prefix: '/postal' });
 
 /**
- * Filtros por ubicación geográfica
+ * Esquemas de validación para los parámetros y query strings utilizando TypeBox.
+ */
+const postalCodeParamsSchema = t.Object({
+   codigo: t.String({
+      pattern: '^[0-9]+$',
+      error: 'El código postal debe ser numérico',
+   }),
+});
+
+const locationParamsSchema = t.Object({
+   estado: t.String({
+      pattern: '^[0-9]{2}$',
+      error: 'El código de estado debe ser un número de 2 dígitos',
+   }),
+   municipio: t.Optional(
+      t.String({
+         pattern: '^[0-9]+$',
+         error: 'El código de municipio debe ser numérico',
+      }),
+   ),
+   ciudad: t.Optional(
+      t.String({
+         pattern: '^[0-9]+$',
+         error: 'El código de ciudad debe ser numérico',
+      }),
+   ),
+   id: t.Optional(
+      t.String({
+         pattern: '^[0-9]+$',
+         error: 'El ID debe ser numérico',
+      }),
+   ),
+});
+
+const searchQueryParamsSchema = t.Object({
+   q: t.String({
+      minLength: 1,
+      error: 'El término de búsqueda no puede estar vacío',
+   }),
+});
+
+/**
+ * Define las rutas principales para búsquedas de códigos postales.
  */
 
-// Filtro por estado
-router.get<Pick<PostalController["LocationParams"], "id">>(
-	"/estado/:id",
-	postalController.getByState,
-); // /api/postal/estado/14
+/**
+ * GET /postal/search
+ * Busca asentamientos por nombre utilizando un término de búsqueda en la query string.
+ *
+ * @param query - Parámetro de query string conteniendo `q` (término de búsqueda).
+ */
+postal.get('/search', (context) => postalController.searchByName(context), {
+   query: searchQueryParamsSchema,
+});
 
-// Filtro por municipio
-router.get<Pick<PostalController["LocationParams"], "estado" | "municipio">>(
-	"/municipio/:estado/:municipio",
-	postalController.getByMunicipio,
-); // /api/postal/municipio/14/001
+/**
+ * GET /postal/codigo/:codigo
+ * Obtiene información detallada de un código postal específico por su código.
+ *
+ * @param params - Parámetro de ruta conteniendo `codigo`.
+ */
+postal.get('/codigo/:codigo', (context) => postalController.getByPostalCode(context), {
+   params: postalCodeParamsSchema,
+});
 
-// Filtro por ciudad
-router.get<Pick<PostalController["LocationParams"], "estado" | "ciudad">>(
-	"/ciudad/:estado/:ciudad",
-	postalController.getByCiudad,
-); // /api/postal/ciudad/14/039
+/**
+ * Define las rutas para filtrar códigos postales por ubicación geográfica.
+ */
 
-export default router;
+/**
+ * GET /postal/estado/:id
+ * Obtiene todos los códigos postales de un estado específico por su ID.
+ *
+ * @param params - Parámetro de ruta conteniendo `id` del estado.
+ */
+postal.get('/estado/:id', (context) => postalController.getByState(context), {
+   params: t.Pick(locationParamsSchema, ['id']),
+});
+
+/**
+ * GET /postal/municipio/:estado/:municipio
+ * Obtiene códigos postales por municipio, filtrando por códigos de estado y municipio.
+ *
+ * @param params - Parámetros de ruta conteniendo `estado` y `municipio`.
+ */
+postal.get('/municipio/:estado/:municipio', (context) => postalController.getByMunicipio(context), {
+   params: t.Pick(locationParamsSchema, ['estado', 'municipio']),
+});
+
+/**
+ * GET /postal/ciudad/:estado/:ciudad
+ * Obtiene códigos postales por ciudad, filtrando por códigos de estado y ciudad.
+ *
+ * @param params - Parámetros de ruta conteniendo `estado` y `ciudad`.
+ */
+postal.get('/ciudad/:estado/:ciudad', (context) => postalController.getByCiudad(context), {
+   params: t.Pick(locationParamsSchema, ['estado', 'ciudad']),
+});
+
+export default postal;

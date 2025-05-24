@@ -1,59 +1,40 @@
 {
-  "name": "sepomex-api-rest",
-  "version": "1.0.0",
-  "description": "API REST para la base de datos de códigos postales de México (SEPOMEX)",
-  "author": "Gera Schz",
-  "license": "MIT",
-  "main": "dist/app.js",
-  "type": "module",
-  "scripts": {
-    "start": "bun dist/app.js",
-    "dev": "bun --watch src/app.ts",
-    "build": "bun build ./src/app.ts --outfile=dist/app.js && bun run copy-files",
-    "copy-files": "copyfiles -u 1 src/**/*.{json,sql} dist/",
-    "lint": "biome check .",
-    "lint:fix": "biome check --write .",
-    "format": "biome format .",
-    "format:fix": "biome format --write .",
-    "clean": "rimraf dist",
-    "prebuild": "bun run clean"
-  },
-  "keywords": [
-    "sepomex",
-    "api",
-    "rest",
-    "mexico",
-    "postal-codes",
-    "códigos-postales"
-  ],
-  "dependencies": {
-    "compression": "^1.7.4",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "ejs": "^3.1.10",
-    "express": "^4.18.2",
-    "express-rate-limit": "^7.5.0",
-    "express-validator": "^7.0.1",
-    "helmet": "^7.1.0",
-    "marked": "^15.0.4",
-    "morgan": "^1.10.0",
-    "pg": "^8.11.3"
-  },
-  "devDependencies": {
-    "@types/compression": "^1.7.5",
-    "@types/cors": "^2.8.17",
-    "@types/ejs": "^3.1.5",
-    "@types/express": "^5.0.0",
-    "@types/marked": "^6.0.0",
-    "@types/morgan": "^1.9.9",
-    "@types/node": "^20.10.0",
-    "@types/pg": "^8.11.0",
-    "@biomejs/biome": "1.9.4",
-    "copyfiles": "^2.4.1",
-    "rimraf": "^5.0.5",
-    "typescript": "^5.3.2"
-  },
-  "engines": {
-    "bun": ">=1.2.0"
-  }
+   "name": "sepomex-api-rest",
+   "version": "2.0.0",
+   "description": "API REST para la base de datos de códigos postales de México (SEPOMEX)",
+   "author": "Gera Schz",
+   "license": "MIT",
+   "main": "dist/app.js",
+   "scripts": {
+      "start": "bun dist/app.js",
+      "dev": "bun --watch src/app.ts",
+      "build": "bun build ./src/app.ts --outfile=dist/app.js && bun run copy-files",
+      "copy-files": "copyfiles -u 1 src/**/*.{json,sql} dist/",
+      "lint": "biome check .",
+      "lint:fix": "biome check --fix --unsafe .",
+      "format": "biome format .",
+      "format:fix": "biome format --write .",
+      "clean": "rimraf dist"
+   },
+   "keywords": ["sepomex", "api", "rest"],
+   "dependencies": {
+      "@elysiajs/cors": "^1.3.3",
+      "@elysiajs/fn": "^0.6.1",
+      "elysia": "^1.3.1",
+      "elysia-helmet": "^3.0.0",
+      "elysia-rate-limit": "^4.3.0",
+      "pg": "^8.16.0"
+   },
+   "devDependencies": {
+      "@biomejs/biome": "1.9.4",
+      "@types/bun": "^1.2.14",
+      "@types/node": "^20.17.50",
+      "@types/pg": "^8.15.2",
+      "copyfiles": "^2.4.1",
+      "rimraf": "^5.0.10",
+      "typescript": "^5.8.3"
+   },
+   "engines": {
+      "bun": ">=1.2.10"
+   }
 }

@@ -1,11 +1,18 @@
-import { Router } from "express";
-import { getApiDocs } from "../controllers/docs.controller.js";
+/**
+ * Rutas para la documentación de la API.
+ * Define el endpoint para acceder a la documentación generada.
+ * @module DocsRoutes
+ */
 
-const router: Router = Router();
+import * as docsController from '@/controllers/docs.controller';
+import { Elysia } from 'elysia';
+
+const docs = new Elysia({ prefix: '/docs' });
 
 /**
- * Renderiza la documentación en HTML
+ * GET /
+ * Sirve la documentación de la API.
  */
-router.get("/", getApiDocs);
+docs.get('/', docsController.getApiDocs);
 
-export default router;
+export default docs;
