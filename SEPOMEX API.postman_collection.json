@@ -1,242 +1,242 @@
 {
-	"info": {
-		"_postman_id": "61e21384-fd9a-4b77-b087-01933d24bf88",
-		"name": "SEPOMEX API",
-		"description": "API REST para consulta de códigos postales de México",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39638548"
-	},
-	"item": [
-		{
-			"name": "Códigos Postales",
-			"item": [
-				{
-					"name": "Buscar asentamientos por nombre",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/postal/search?q=centro",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "postal", "search"],
-							"query": [
-								{
-									"key": "q",
-									"value": "centro"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Buscar por código postal",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/postal/codigo/29000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "postal", "codigo", "29000"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Códigos postales por estado",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/postal/estado/07",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "postal", "estado", "07"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Códigos postales por municipio",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/postal/municipio/07/001",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "postal", "municipio", "07", "001"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Códigos postales por ciudad",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/postal/ciudad/09/01",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "postal", "ciudad", "09", "01"]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Estados",
-			"item": [
-				{
-					"name": "Obtener todos los estados",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/states",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "states"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener estado por ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/states/09",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "states", "09"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Ciudades por estado",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/states/07/cities",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "states", "07", "cities"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Municipios por estado",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/states/07/municipios",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "states", "07", "municipios"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Asentamientos por estado",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/states/07/asentamientos",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "states", "07", "asentamientos"]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Ciudades",
-			"item": [
-				{
-					"name": "Obtener todas las ciudades",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/cities",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "cities"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener ciudad por ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/cities/07/01",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "cities", "07", "01"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Colonias por ciudad",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/cities/07/01/colonias",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "cities", "07", "01", "colonias"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Códigos postales por ciudad",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/cities/07/01/codigos",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "3000",
-							"path": ["api", "v1", "cities", "07", "01", "codigos"]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+   "info": {
+      "_postman_id": "61e21384-fd9a-4b77-b087-01933d24bf88",
+      "name": "SEPOMEX API",
+      "description": "API REST para consulta de códigos postales de México",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "_exporter_id": "39638548"
+   },
+   "item": [
+      {
+         "name": "Códigos Postales",
+         "item": [
+            {
+               "name": "Buscar asentamientos por nombre",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/postal/search?q=centro",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "postal", "search"],
+                     "query": [
+                        {
+                           "key": "q",
+                           "value": "centro"
+                        }
+                     ]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Buscar por código postal",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/postal/codigo/29000",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "postal", "codigo", "29000"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Códigos postales por estado",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/postal/estado/07",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "postal", "estado", "07"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Códigos postales por municipio",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/postal/municipio/07/001",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "postal", "municipio", "07", "001"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Códigos postales por ciudad",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/postal/ciudad/09/01",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "postal", "ciudad", "09", "01"]
+                  }
+               },
+               "response": []
+            }
+         ]
+      },
+      {
+         "name": "Estados",
+         "item": [
+            {
+               "name": "Obtener todos los estados",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/states",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "states"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Obtener estado por ID",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/states/09",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "states", "09"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Ciudades por estado",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/states/07/cities",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "states", "07", "cities"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Municipios por estado",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/states/07/municipios",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "states", "07", "municipios"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Asentamientos por estado",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/states/07/asentamientos",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "states", "07", "asentamientos"]
+                  }
+               },
+               "response": []
+            }
+         ]
+      },
+      {
+         "name": "Ciudades",
+         "item": [
+            {
+               "name": "Obtener todas las ciudades",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/cities",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "cities"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Obtener ciudad por ID",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/cities/07/01",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "cities", "07", "01"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Colonias por ciudad",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/cities/07/01/colonias",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "cities", "07", "01", "colonias"]
+                  }
+               },
+               "response": []
+            },
+            {
+               "name": "Códigos postales por ciudad",
+               "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                     "raw": "http://localhost:3000/api/v1/cities/07/01/codigos",
+                     "protocol": "http",
+                     "host": ["localhost"],
+                     "port": "3000",
+                     "path": ["api", "v1", "cities", "07", "01", "codigos"]
+                  }
+               },
+               "response": []
+            }
+         ]
+      }
+   ]
 }

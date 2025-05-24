@@ -1,10 +1,10 @@
 # SEPOMEX API REST
 
-API REST desarrollada con Bun y Express para consultar la base de datos de códigos postales de México (SEPOMEX).
+API REST desarrollada con Bun y Elysia para consultar la base de datos de códigos postales de México (SEPOMEX).
 
 <div align="center">
   <img src="https://img.shields.io/badge/-Bun-000000?style=for-the-badge&logo=bun&labelColor=282c34" style="border-radius: 3px;" />
-  <img src="https://img.shields.io/badge/-Express-000000?style=for-the-badge&logo=express&labelColor=282c34" style="border-radius: 3px;" />
+  <img src="https://img.shields.io/badge/-Elysia-000000?style=for-the-badge&logo=elysia&labelColor=282c34" style="border-radius: 3px;" />
   <img src="https://img.shields.io/badge/-Biome-000000?style=for-the-badge&logo=biome&labelColor=282c34" style="border-radius: 3px;" />
   <img src="https://img.shields.io/badge/-Postman-000000?style=for-the-badge&logo=postman&labelColor=282c34" style="border-radius: 3px;" />
 </div>
@@ -28,29 +28,29 @@ Los datos originales provienen del Servicio Postal Mexicano (SEPOMEX) a través 
 - Base de datos PostgreSQL con datos de SEPOMEX
 - Postman (opcional, para pruebas)
 
-### Paso 1: Clonar el repositorio
+### Clonar el repositorio
 
 ```bash
-git clone https://github.com/hk4u-dxv/sepomex-api-rest.git
+git clone https://github.com/hkxdv/sepomex-api-rest.git
 cd sepomex-api-rest
 ```
 
-### Paso 2: Instalar dependencias
+### Instalar dependencias
 
 ```bash
-bun i
+bun install
 ```
 
-### Paso 3: Configurar variables de entorno
+### Configurar variables de entorno
 
 ```bash
-cp .env.example .env.development
+cp .env.example
 ```
 
 > [!IMPORTANT]
 > Es necesario configurar correctamente las variables de entorno, especialmente las credenciales de la base de datos PostgreSQL.
 
-### Paso 4: Iniciar el servidor
+### Iniciar el servidor
 
 ```bash
 bun dev
@@ -60,17 +60,27 @@ bun dev
 
 Ejemplos de los principales endpoints:
 
+### Búsqueda por nombre de asentamiento
+
 ```http
-# Búsqueda por nombre de asentamiento
 GET /api/v1/postal/search?q=centro
+```
 
-# Búsqueda por código postal
+### Búsqueda por código postal
+
+```http
 GET /api/v1/postal/codigo/29000
+```
 
-# Filtrar por estado
+### Filtrar por estado
+
+```http
 GET /api/v1/postal/estado/07
+```
 
-# Filtrar por estado y municipio
+### Filtrar por estado y municipio
+
+```http
 GET /api/v1/postal/estado/07/municipio/101
 ```
 
@@ -100,7 +110,7 @@ Para más detalles sobre la estructura de la base de datos, consulta el proyecto
 
 Esta API utiliza la base de datos estructurada en el proyecto:
 
-<a href="https://github.com/hk4u-dxv/sepomex-psql-db">
+<a href="https://github.com/hkxdv/sepomex-psql-db">
   <img src="https://img.shields.io/badge/-sepomex--psql--db-000000?style=for-the-badge&logo=github&labelColor=282c34" style="border-radius: 3px;" />
 </a>
 
@@ -111,8 +121,6 @@ La base de datos proporciona:
 - Consultas SQL de ejemplo
 - Datos completos de códigos postales de México
 
-## 🥷 Autor
+## Licencia
 
-<a href="https://github.com/hk4u-dxv">
-  <img src="https://img.shields.io/badge/-hk4u--dxv-000000?style=for-the-badge&logo=github&labelColor=282c34" style="border-radius: 3px;" />
-</a>
+MIT &copy; Gera Schz.
