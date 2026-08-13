@@ -49,3 +49,6 @@ coverage/
 
 # Local AI runtime state
 .atl
+
+# CodeGraph local index
+.codegraph/
