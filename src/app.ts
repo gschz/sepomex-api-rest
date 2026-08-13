@@ -8,7 +8,7 @@ import config from '@/config/config';
 import { configureServer } from '@/config/server';
 import routes from '@/routes/index.routes';
 import { openapi } from '@elysiajs/openapi';
-import { Elysia, NotFoundError } from 'elysia';
+import { Elysia, NotFoundError, ValidationError } from 'elysia';
 
 const { port: PORT, nodeEnv: NODE_ENV, apiUrl: API_URL } = config;
 
@@ -57,8 +57,30 @@ app.onError(({ code, error, set }) => {
       };
    }
 
+   if (error instanceof ValidationError) {
+      // Fallos de validación de params/query/body (Elysia set.status = 422)
+      set.status = 422;
+      return {
+         status: 422,
+         message: 'Parámetros inválidos',
+         error:
+            NODE_ENV === 'development'
+               ? error.all.map(({ path, message }) => ({ path, message }))
+               : undefined,
+      };
+   }
+
+   let errorDetail: string;
+   if (error instanceof Error) {
+      errorDetail = error.message;
+   } else if (typeof error === 'string') {
+      errorDetail = error;
+   } else {
+      errorDetail = JSON.stringify(error);
+   }
+
    // Manejo de otros errores
-   console.error(`[Error ${code || 'UNKNOWN'}]: ${error instanceof Error ? error.message : String(error)}`);
+   console.error(`[Error ${code || 'UNKNOWN'}]: ${errorDetail}`);
 
    // Establecer el código de estado adecuado para errores no manejados específicamente
    // Aseguramos que set.status sea tratado como número para la comparación
@@ -68,8 +90,7 @@ app.onError(({ code, error, set }) => {
    return {
       status: set.status,
       message: 'Error interno del servidor',
-      error:
-         NODE_ENV === 'development' ? (error instanceof Error ? error.message : String(error)) : undefined,
+      error: NODE_ENV === 'development' ? errorDetail : undefined,
    };
 });
 
