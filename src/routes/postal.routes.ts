@@ -5,7 +5,6 @@
  */
 
 import * as postalController from '@/controllers/postal.controller';
-import type { PostalController } from '@/types';
 import { Elysia, t } from 'elysia';
 
 const postal = new Elysia({ prefix: '/postal' });
@@ -27,20 +26,20 @@ const locationParamsSchema = t.Object({
    }),
    municipio: t.Optional(
       t.String({
-         pattern: '^[0-9]+$',
-         error: 'El código de municipio debe ser numérico',
+         pattern: '^[0-9]{3}$',
+         error: 'El código de municipio debe ser un número de 3 dígitos',
       }),
    ),
    ciudad: t.Optional(
       t.String({
-         pattern: '^[0-9]+$',
-         error: 'El código de ciudad debe ser numérico',
+         pattern: '^[0-9]{2}$',
+         error: 'El código de ciudad debe ser un número de 2 dígitos',
       }),
    ),
    id: t.Optional(
       t.String({
-         pattern: '^[0-9]+$',
-         error: 'El ID debe ser numérico',
+         pattern: '^[0-9]{2}$',
+         error: 'El ID debe ser un número de 2 dígitos',
       }),
    ),
 });
@@ -64,6 +63,7 @@ const searchQueryParamsSchema = t.Object({
  */
 postal.get('/search', (context) => postalController.searchByName(context), {
    query: searchQueryParamsSchema,
+   detail: { tags: ['Códigos Postales'], summary: 'Buscar asentamientos por nombre' },
 });
 
 /**
@@ -74,6 +74,7 @@ postal.get('/search', (context) => postalController.searchByName(context), {
  */
 postal.get('/codigo/:codigo', (context) => postalController.getByPostalCode(context), {
    params: postalCodeParamsSchema,
+   detail: { tags: ['Códigos Postales'], summary: 'Obtener detalle de un código postal' },
 });
 
 /**
@@ -88,6 +89,7 @@ postal.get('/codigo/:codigo', (context) => postalController.getByPostalCode(cont
  */
 postal.get('/estado/:id', (context) => postalController.getByState(context), {
    params: t.Pick(locationParamsSchema, ['id']),
+   detail: { tags: ['Códigos Postales'], summary: 'Obtener códigos postales por estado' },
 });
 
 /**
@@ -98,6 +100,7 @@ postal.get('/estado/:id', (context) => postalController.getByState(context), {
  */
 postal.get('/municipio/:estado/:municipio', (context) => postalController.getByMunicipio(context), {
    params: t.Pick(locationParamsSchema, ['estado', 'municipio']),
+   detail: { tags: ['Códigos Postales'], summary: 'Obtener códigos postales por municipio' },
 });
 
 /**
@@ -108,6 +111,7 @@ postal.get('/municipio/:estado/:municipio', (context) => postalController.getByM
  */
 postal.get('/ciudad/:estado/:ciudad', (context) => postalController.getByCiudad(context), {
    params: t.Pick(locationParamsSchema, ['estado', 'ciudad']),
+   detail: { tags: ['Códigos Postales'], summary: 'Obtener códigos postales por ciudad' },
 });
 
 export default postal;

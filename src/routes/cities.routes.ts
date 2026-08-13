@@ -5,7 +5,6 @@
  */
 
 import * as citiesController from '@/controllers/cities.controller';
-import type { CitiesController } from '@/types';
 import { Elysia, t } from 'elysia';
 
 const cities = new Elysia({ prefix: '/cities' });
@@ -19,8 +18,8 @@ const cityParamsSchema = t.Object({
       error: 'El código de estado debe ser un número de 2 dígitos',
    }),
    ciudad: t.String({
-      pattern: '^[0-9]{3}$',
-      error: 'El código de ciudad debe ser un número de 3 dígitos',
+      pattern: '^[0-9]{2}$',
+      error: 'El código de ciudad debe ser un número de 2 dígitos',
    }),
 });
 
@@ -32,7 +31,9 @@ const cityParamsSchema = t.Object({
  * GET /cities
  * Obtiene todas las ciudades con su información de estado.
  */
-cities.get('/', citiesController.getAllCities);
+cities.get('/', citiesController.getAllCities, {
+   detail: { tags: ['Ciudades'], summary: 'Listar todas las ciudades' },
+});
 
 /**
  * GET /cities/:estado/:ciudad
@@ -42,6 +43,7 @@ cities.get('/', citiesController.getAllCities);
  */
 cities.get('/:estado/:ciudad', (context) => citiesController.getCityById(context), {
    params: cityParamsSchema,
+   detail: { tags: ['Ciudades'], summary: 'Obtener una ciudad por estado y ciudad' },
 });
 
 /**
@@ -56,6 +58,7 @@ cities.get('/:estado/:ciudad', (context) => citiesController.getCityById(context
  */
 cities.get('/:estado/:ciudad/colonias', (context) => citiesController.getColoniasByCity(context), {
    params: cityParamsSchema,
+   detail: { tags: ['Ciudades'], summary: 'Obtener colonias de una ciudad' },
 });
 
 /**
@@ -66,6 +69,7 @@ cities.get('/:estado/:ciudad/colonias', (context) => citiesController.getColonia
  */
 cities.get('/:estado/:ciudad/codigos', (context) => citiesController.getPostalCodesByCity(context), {
    params: cityParamsSchema,
+   detail: { tags: ['Ciudades'], summary: 'Obtener códigos postales de una ciudad' },
 });
 
 export default cities;

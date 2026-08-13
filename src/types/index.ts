@@ -1,58 +1,57 @@
-// Interfaces Base de Datos
-interface BaseEntity {
+/**
+ * Types aligned to v2 DB function return columns.
+ * CHAR columns come back as string from pg, SMALLINT as number.
+ */
+
+// Record types — match PL/pgSQL function RETURNS exactly
+
+export interface PostalCodeRecord {
+   codigo_postal: string;
+   nombre_asentamiento: string;
+   tipo_asentamiento: string;
+   zona: string;
    codigo_estado: string;
+   nombre_estado: string;
+   pk_codigo_municipio: string | null;
+   nombre_municipio: string | null;
+   pk_codigo_ciudad: string | null;
+   nombre_ciudad: string | null;
 }
 
-export interface Estado extends BaseEntity {
+export interface StateRecord {
+   codigo_estado: string;
    nombre_estado: string;
 }
 
-export interface Municipio extends BaseEntity {
-   codigo_municipio: string;
-   nombre_municipio: string;
-}
-
-export interface Ciudad extends BaseEntity {
+export interface CityRecord {
    codigo_ciudad: string;
    nombre_ciudad: string;
+   codigo_estado: string;
 }
 
-export interface CodigoPostal extends BaseEntity {
-   codigo_postal: string;
-   nombre_asentamiento: string;
-   codigo_tipo_asentamiento: string;
+export interface MunicipalityRecord {
    codigo_municipio: string;
-   codigo_ciudad?: string;
-   id_zona?: number;
+   nombre_municipio: string;
+   codigo_estado: string;
 }
+
+// Controller interface contracts — keep Elysia context typing
 
 export interface StateController {
    Params: { id: string };
-   GetAllReturn: Promise<ApiResponse<Estado[]>>;
-   GetByIdReturn: Promise<ApiResponse<Estado> | { success: false; message: string }>;
-   GetCitiesReturn: Promise<ApiResponse<Pick<Ciudad, 'codigo_ciudad' | 'nombre_ciudad'>[]>>;
-   GetMunicipiosReturn: Promise<ApiResponse<Pick<Municipio, 'codigo_municipio' | 'nombre_municipio'>[]>>;
-   GetAsentamientosReturn: Promise<
-      ApiResponse<{ nombre_asentamiento: string; nombre_tipo_asentamiento: string }[]>
-   >;
+   GetAllReturn: Promise<ApiResponse<StateRecord[]>>;
+   GetByIdReturn: Promise<ApiResponse<StateRecord> | { success: false; message: string }>;
+   GetCitiesReturn: Promise<ApiResponse<CityRecord[]>>;
+   GetMunicipiosReturn: Promise<ApiResponse<MunicipalityRecord[]>>;
+   GetAsentamientosReturn: Promise<ApiResponse<PostalCodeRecord[]>>;
 }
 
 export interface CitiesController {
    Params: { estado: string; ciudad: string };
-   GetAllReturn: Promise<ApiResponse<(Ciudad & { nombre_estado: string })[]>>;
-   GetByIdReturn: Promise<
-      ApiResponse<Ciudad & { nombre_estado: string }> | { success: false; message: string }
-   >;
-   GetColoniasReturn: Promise<
-      ApiResponse<
-         {
-            nombre_asentamiento: string;
-            nombre_tipo_asentamiento: string;
-            tipo_zona: string;
-         }[]
-      >
-   >;
-   GetPostalCodesReturn: Promise<ApiResponse<{ codigo_postal: string }[]>>;
+   GetAllReturn: Promise<ApiResponse<CityRecord[]>>;
+   GetByIdReturn: Promise<ApiResponse<CityRecord> | { success: false; message: string }>;
+   GetColoniasReturn: Promise<ApiResponse<PostalCodeRecord[]>>;
+   GetPostalCodesReturn: Promise<ApiResponse<PostalCodeRecord[]>>;
 }
 
 export interface PostalController {
@@ -64,21 +63,15 @@ export interface PostalController {
       municipio?: string;
       ciudad?: string;
    };
-   PostalCodeRecord: CodigoPostal & {
-      nombre_estado?: string;
-      nombre_municipio?: string;
-      nombre_ciudad?: string;
-      nombre_tipo_asentamiento?: string;
-      tipo_zona?: string;
-   };
-   SearchByNameReturn: Promise<ApiResponse<this['PostalCodeRecord'][]>>;
-   GetByPostalCodeReturn: Promise<ApiResponse<this['PostalCodeRecord'][]>>;
-   GetByStateReturn: Promise<ApiResponse<this['PostalCodeRecord'][]>>;
-   GetByMunicipioReturn: Promise<ApiResponse<this['PostalCodeRecord'][]>>;
-   GetByCiudadReturn: Promise<ApiResponse<this['PostalCodeRecord'][]>>;
+   SearchByNameReturn: Promise<ApiResponse<PostalCodeRecord[]>>;
+   GetByPostalCodeReturn: Promise<ApiResponse<PostalCodeRecord[]>>;
+   GetByStateReturn: Promise<ApiResponse<PostalCodeRecord[]>>;
+   GetByMunicipioReturn: Promise<ApiResponse<PostalCodeRecord[]>>;
+   GetByCiudadReturn: Promise<ApiResponse<PostalCodeRecord[]>>;
 }
 
-// Interfaces de Configuración
+// Config types
+
 export interface DbConfig {
    user?: string;
    password?: string;
@@ -88,7 +81,6 @@ export interface DbConfig {
    timezone?: string;
 }
 
-// Interfaz Respuesta API Global
 export interface ApiResponse<T> {
    success: boolean;
    message: string;
@@ -96,7 +88,6 @@ export interface ApiResponse<T> {
    error?: string;
 }
 
-// Añadir nuevas interfaces para respuestas API más específicas
 export interface PaginatedResponse<T> extends ApiResponse<T> {
    pagination?: {
       page: number;

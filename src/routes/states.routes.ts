@@ -27,7 +27,9 @@ const stateParamsSchema = t.Object({
  * GET /states
  * Obtiene todos los estados.
  */
-states.get('/', statesController.getAllStates);
+states.get('/', statesController.getAllStates, {
+   detail: { tags: ['Estados'], summary: 'Listar todos los estados' },
+});
 
 /**
  * GET /states/:id
@@ -37,6 +39,7 @@ states.get('/', statesController.getAllStates);
  */
 states.get('/:id', (context) => statesController.getStateById(context), {
    params: stateParamsSchema,
+   detail: { tags: ['Estados'], summary: 'Obtener un estado por ID' },
 });
 
 /**
@@ -51,6 +54,7 @@ states.get('/:id', (context) => statesController.getStateById(context), {
  */
 states.get('/:id/cities', (context) => statesController.getCitiesByState(context), {
    params: stateParamsSchema,
+   detail: { tags: ['Estados'], summary: 'Obtener ciudades de un estado' },
 });
 
 /**
@@ -61,6 +65,7 @@ states.get('/:id/cities', (context) => statesController.getCitiesByState(context
  */
 states.get('/:id/municipios', (context) => statesController.getMunicipiosByState(context), {
    params: stateParamsSchema,
+   detail: { tags: ['Estados'], summary: 'Obtener municipios de un estado' },
 });
 
 /**
@@ -71,6 +76,10 @@ states.get('/:id/municipios', (context) => statesController.getMunicipiosByState
  */
 states.get('/:id/asentamientos', (context) => statesController.getAsentamientosByState(context), {
    params: stateParamsSchema,
+   detail: {
+      tags: ['Estados'],
+      summary: 'Obtener asentamientos de un estado',
+   },
 });
 
 export default states;
