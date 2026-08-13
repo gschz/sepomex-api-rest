@@ -13,12 +13,24 @@ import config from './config';
 import { setupRateLimit } from './rate-limit';
 
 const {
-   nodeEnv: NODE_ENV,
    security: { cors: CORS_CONFIG },
 } = config;
 
 export function configureServer(app: Elysia): void {
-   app.use(helmet());
+   app.use(
+      helmet({
+         contentSecurityPolicy: {
+            directives: {
+               // Scalar docs UI at /openapi loads its bundle from jsdelivr and
+               // boots via an inline script; the helmet default (script-src 'self')
+               // blocks both. Rest of the CSP stays at helmet defaults.
+               scriptSrc: ["'self'", 'https://cdn.jsdelivr.net', "'unsafe-inline'"],
+               // Scalar UI queries its integrations registry from api.scalar.com
+               connectSrc: ["'self'", 'https://api.scalar.com', 'https://cdn.jsdelivr.net'],
+            },
+         },
+      }),
+   );
    app.use(cors(CORS_CONFIG));
    app.use(setupRateLimit());
 }
