@@ -61,14 +61,14 @@ export const getByPostalCode = async (
 
 export const getByState = async (
    context: Context<{
-      params: Pick<PostalController['LocationParams'], 'id'>;
+      params: Pick<PostalController['LocationParams'], 'estado'>;
    }>,
 ): PostalController['GetByStateReturn'] => {
    try {
-      const { id } = context.params;
+      const { estado } = context.params;
       const { rows } = await pool.query<PostalCodeRecord>(
          'SELECT * FROM get_postal_codes_by_state($1, $2, $3)',
-         [id, 100, 0],
+         [estado, 100, 0],
       );
       return {
          success: true,

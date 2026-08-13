@@ -38,7 +38,7 @@ export interface MunicipalityRecord {
 // Controller interface contracts — keep Elysia context typing
 
 export interface StateController {
-   Params: { id: string };
+   Params: { estado: string };
    GetAllReturn: Promise<ApiResponse<StateRecord[]>>;
    GetByIdReturn: Promise<ApiResponse<StateRecord> | { success: false; message: string }>;
    GetCitiesReturn: Promise<ApiResponse<CityRecord[]>>;
@@ -58,7 +58,6 @@ export interface PostalController {
    SearchQuery: { q: string };
    PostalParams: { codigo: string };
    LocationParams: {
-      id?: string;
       estado?: string;
       municipio?: string;
       ciudad?: string;

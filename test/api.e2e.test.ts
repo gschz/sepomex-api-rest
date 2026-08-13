@@ -36,27 +36,27 @@ function entries(body: ApiResponse): ApiEntry[] {
    return (body.data as ApiEntry[] | null) ?? [];
 }
 
-describe('GET /states', () => {
+describe('GET /estados', () => {
    test('lists all 32 states', async () => {
-      const { status, body } = await get('/states/');
+      const { status, body } = await get('/estados/');
       expect(status).toBe(200);
       expect(body.success).toBe(true);
       expect(entries(body)).toHaveLength(32);
    });
 
    test('returns a state by id', async () => {
-      const { status, body } = await get('/states/09');
+      const { status, body } = await get('/estados/09');
       expect(status).toBe(200);
       expect((body.data as ApiEntry | null)?.nombre_estado).toBe('Ciudad de México');
    });
 
    test('rejects a non-2-digit id', async () => {
-      const { status } = await get('/states/9');
+      const { status } = await get('/estados/9');
       expect(status).toBeGreaterThanOrEqual(400);
    });
 
    test('lists cities, municipios and asentamientos of a state', async () => {
-      for (const path of ['/states/09/cities', '/states/09/municipios', '/states/09/asentamientos']) {
+      for (const path of ['/estados/09/ciudades', '/estados/09/municipios', '/estados/09/asentamientos']) {
          const { status, body } = await get(path);
          expect(status).toBe(200);
          expect(entries(body).length).toBeGreaterThan(0);
@@ -64,21 +64,21 @@ describe('GET /states', () => {
    });
 });
 
-describe('GET /cities', () => {
+describe('GET /ciudades', () => {
    test('lists all cities', async () => {
-      const { status, body } = await get('/cities/');
+      const { status, body } = await get('/ciudades/');
       expect(status).toBe(200);
       expect(entries(body).length).toBeGreaterThan(600);
    });
 
    test('returns city by estado+ciudad', async () => {
-      const { status, body } = await get('/cities/09/01');
+      const { status, body } = await get('/ciudades/09/01');
       expect(status).toBe(200);
       expect((body.data as ApiEntry | null)?.nombre_ciudad).toBe('Ciudad de México');
    });
 
    test('lists colonias and postal codes of a city', async () => {
-      for (const path of ['/cities/09/01/colonias', '/cities/09/01/codigos']) {
+      for (const path of ['/ciudades/09/01/colonias', '/ciudades/09/01/codigos-postales']) {
          const { status, body } = await get(path);
          expect(status).toBe(200);
          expect(entries(body).length).toBeGreaterThan(0);
@@ -86,29 +86,33 @@ describe('GET /cities', () => {
    });
 });
 
-describe('GET /postal', () => {
+describe('GET /codigos-postales', () => {
    test('searches settlements by name', async () => {
-      const { status, body } = await get('/postal/search?q=centro');
+      const { status, body } = await get('/codigos-postales/buscar?q=centro');
       expect(status).toBe(200);
       expect(body.success).toBe(true);
       expect(entries(body).length).toBeGreaterThan(0);
    });
 
    test('returns a settlement by postal code', async () => {
-      const { status, body } = await get('/postal/codigo/01000');
+      const { status, body } = await get('/codigos-postales/01000');
       expect(status).toBe(200);
       expect(entries(body)).toHaveLength(1);
       expect(entries(body)[0]?.codigo_postal).toBe('01000');
    });
 
    test('returns empty data for an unknown postal code', async () => {
-      const { status, body } = await get('/postal/codigo/99999');
+      const { status, body } = await get('/codigos-postales/99999');
       expect(status).toBe(200);
       expect(entries(body)).toEqual([]);
    });
 
    test('filters by state, municipio and ciudad', async () => {
-      for (const path of ['/postal/estado/09', '/postal/municipio/09/010', '/postal/ciudad/09/01']) {
+      for (const path of [
+         '/codigos-postales/estado/09',
+         '/codigos-postales/municipio/09/010',
+         '/codigos-postales/ciudad/09/01',
+      ]) {
          const { status, body } = await get(path);
          expect(status).toBe(200);
          expect(entries(body).length).toBeGreaterThan(0);
@@ -116,7 +120,7 @@ describe('GET /postal', () => {
    });
 
    test('rejects non-numeric postal code with 4xx', async () => {
-      const { status } = await get('/postal/codigo/abc');
+      const { status } = await get('/codigos-postales/abc');
       expect(status).toBeGreaterThanOrEqual(400);
    });
 });

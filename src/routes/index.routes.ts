@@ -40,17 +40,17 @@ routes.get('/', () => {
          windowMs: `${RATE_LIMIT_WINDOW / 60000} minutos`,
       },
       endpoints: {
-         postal: {
-            base: '/postal',
-            examples: ['/postal/codigo/45050', '/postal/search?q=centro'],
+         'codigos-postales': {
+            base: '/codigos-postales',
+            examples: ['/codigos-postales/01000', '/codigos-postales/buscar?q=centro'],
          },
-         states: {
-            base: '/states',
-            examples: ['/states/14', '/states/14/cities'],
+         estados: {
+            base: '/estados',
+            examples: ['/estados/09', '/estados/09/ciudades'],
          },
-         cities: {
-            base: '/cities',
-            examples: ['/cities/14/001', '/cities/14/001/colonias'],
+         ciudades: {
+            base: '/ciudades',
+            examples: ['/ciudades/09/01', '/ciudades/09/01/colonias'],
          },
       },
    };

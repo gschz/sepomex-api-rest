@@ -7,7 +7,7 @@
 import * as citiesController from '@/controllers/cities.controller';
 import { Elysia, t } from 'elysia';
 
-const cities = new Elysia({ prefix: '/cities' });
+const cities = new Elysia({ prefix: '/ciudades' });
 
 /**
  * Esquemas de validación para los parámetros de ruta utilizando TypeBox.
@@ -28,7 +28,7 @@ const cityParamsSchema = t.Object({
  */
 
 /**
- * GET /cities
+ * GET /ciudades
  * Obtiene todas las ciudades con su información de estado.
  */
 cities.get('/', citiesController.getAllCities, {
@@ -36,7 +36,7 @@ cities.get('/', citiesController.getAllCities, {
 });
 
 /**
- * GET /cities/:estado/:ciudad
+ * GET /ciudades/:estado/:ciudad
  * Obtiene información detallada de una ciudad específica por sus códigos.
  *
  * @param params - Parámetros de ruta conteniendo `estado` y `ciudad`.
@@ -51,7 +51,7 @@ cities.get('/:estado/:ciudad', (context) => citiesController.getCityById(context
  */
 
 /**
- * GET /cities/:estado/:ciudad/colonias
+ * GET /ciudades/:estado/:ciudad/colonias
  * Obtiene todas las colonias (asentamientos) de una ciudad específica.
  *
  * @param params - Parámetros de ruta conteniendo `estado` y `ciudad`.
@@ -62,12 +62,12 @@ cities.get('/:estado/:ciudad/colonias', (context) => citiesController.getColonia
 });
 
 /**
- * GET /cities/:estado/:ciudad/codigos
+ * GET /ciudades/:estado/:ciudad/codigos-postales
  * Obtiene todos los códigos postales asociados a una ciudad específica.
  *
  * @param params - Parámetros de ruta conteniendo `estado` y `ciudad`.
  */
-cities.get('/:estado/:ciudad/codigos', (context) => citiesController.getPostalCodesByCity(context), {
+cities.get('/:estado/:ciudad/codigos-postales', (context) => citiesController.getPostalCodesByCity(context), {
    params: cityParamsSchema,
    detail: { tags: ['Ciudades'], summary: 'Obtener códigos postales de una ciudad' },
 });

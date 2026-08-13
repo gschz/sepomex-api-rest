@@ -76,39 +76,39 @@ GET /api/v2/openapi/json
 
 Todos los endpoints están bajo el prefijo `/api/v2`:
 
-| Método | Endpoint                                        | Descripción                                         |
-| ------ | ----------------------------------------------- | --------------------------------------------------- |
-| GET    | `/api/v2/postal/search?q={termino}`             | Busca asentamientos por nombre                      |
-| GET    | `/api/v2/postal/codigo/{codigo}`                | Detalle por código postal (5 dígitos)               |
-| GET    | `/api/v2/postal/estado/{id}`                    | Códigos postales por estado (2 dígitos)             |
-| GET    | `/api/v2/postal/municipio/{estado}/{municipio}` | Códigos postales por estado y municipio (3 dígitos) |
-| GET    | `/api/v2/postal/ciudad/{estado}/{ciudad}`       | Códigos postales por estado y ciudad (2 dígitos)    |
-| GET    | `/api/v2/states/`                               | Todos los estados                                   |
-| GET    | `/api/v2/states/{id}`                           | Estado por ID                                       |
-| GET    | `/api/v2/states/{id}/cities`                    | Ciudades de un estado                               |
-| GET    | `/api/v2/states/{id}/municipios`                | Municipios de un estado                             |
-| GET    | `/api/v2/states/{id}/asentamientos`             | Asentamientos de un estado                          |
-| GET    | `/api/v2/cities/`                               | Todas las ciudades                                  |
-| GET    | `/api/v2/cities/{estado}/{ciudad}`              | Ciudad por estado y ciudad                          |
-| GET    | `/api/v2/cities/{estado}/{ciudad}/colonias`     | Colonias de una ciudad                              |
-| GET    | `/api/v2/cities/{estado}/{ciudad}/codigos`      | Códigos postales de una ciudad                      |
+| Método | Endpoint                                                | Descripción                                         |
+| ------ | ------------------------------------------------------- | --------------------------------------------------- |
+| GET    | `/api/v2/codigos-postales/buscar?q={termino}`           | Busca asentamientos por nombre                      |
+| GET    | `/api/v2/codigos-postales/{codigo}`                     | Detalle por código postal (5 dígitos)               |
+| GET    | `/api/v2/codigos-postales/estado/{estado}`              | Códigos postales por estado (2 dígitos)             |
+| GET    | `/api/v2/codigos-postales/municipio/{estado}/{municipio}` | Códigos postales por estado y municipio (3 dígitos) |
+| GET    | `/api/v2/codigos-postales/ciudad/{estado}/{ciudad}`     | Códigos postales por estado y ciudad (2 dígitos)    |
+| GET    | `/api/v2/estados/`                                      | Todos los estados                                   |
+| GET    | `/api/v2/estados/{estado}`                              | Estado por código                                   |
+| GET    | `/api/v2/estados/{estado}/ciudades`                     | Ciudades de un estado                               |
+| GET    | `/api/v2/estados/{estado}/municipios`                   | Municipios de un estado                             |
+| GET    | `/api/v2/estados/{estado}/asentamientos`                | Asentamientos de un estado                          |
+| GET    | `/api/v2/ciudades/`                                     | Todas las ciudades                                  |
+| GET    | `/api/v2/ciudades/{estado}/{ciudad}`                    | Ciudad por estado y ciudad                          |
+| GET    | `/api/v2/ciudades/{estado}/{ciudad}/colonias`           | Colonias de una ciudad                              |
+| GET    | `/api/v2/ciudades/{estado}/{ciudad}/codigos-postales`   | Códigos postales de una ciudad                      |
 
 ### Búsqueda por nombre de asentamiento
 
 ```bash
-curl "http://localhost:3000/api/v2/postal/search?q=centro"
+curl "http://localhost:3000/api/v2/codigos-postales/buscar?q=centro"
 ```
 
 ### Búsqueda por código postal
 
 ```bash
-curl "http://localhost:3000/api/v2/postal/codigo/01000"
+curl "http://localhost:3000/api/v2/codigos-postales/01000"
 ```
 
 ### Filtrar por estado y municipio
 
 ```bash
-curl "http://localhost:3000/api/v2/postal/municipio/09/010"
+curl "http://localhost:3000/api/v2/codigos-postales/municipio/09/010"
 ```
 
 Respuesta estándar:

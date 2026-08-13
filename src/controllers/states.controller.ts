@@ -32,8 +32,8 @@ export const getStateById = async (
    }>,
 ): StateController['GetByIdReturn'] => {
    try {
-      const { id } = context.params;
-      const { rows } = await pool.query<StateRecord>('SELECT * FROM get_state_by_id($1)', [id]);
+      const { estado } = context.params;
+      const { rows } = await pool.query<StateRecord>('SELECT * FROM get_state_by_id($1)', [estado]);
       if (rows.length === 0) {
          context.set.status = 404;
          return {
@@ -62,8 +62,8 @@ export const getCitiesByState = async (
    }>,
 ): StateController['GetCitiesReturn'] => {
    try {
-      const { id } = context.params;
-      const { rows } = await pool.query<CityRecord>('SELECT * FROM get_cities_by_state($1)', [id]);
+      const { estado } = context.params;
+      const { rows } = await pool.query<CityRecord>('SELECT * FROM get_cities_by_state($1)', [estado]);
       return {
          success: true,
          message: 'Ciudades del estado obtenidas exitosamente',
@@ -85,9 +85,9 @@ export const getMunicipiosByState = async (
    }>,
 ): StateController['GetMunicipiosReturn'] => {
    try {
-      const { id } = context.params;
+      const { estado } = context.params;
       const { rows } = await pool.query<MunicipalityRecord>('SELECT * FROM get_municipalities_by_state($1)', [
-         id,
+         estado,
       ]);
       return {
          success: true,
@@ -110,10 +110,10 @@ export const getAsentamientosByState = async (
    }>,
 ): StateController['GetAsentamientosReturn'] => {
    try {
-      const { id } = context.params;
+      const { estado } = context.params;
       const { rows } = await pool.query<PostalCodeRecord>(
          'SELECT * FROM get_postal_codes_by_state($1, $2, $3)',
-         [id, 100, 0],
+         [estado, 100, 0],
       );
       return {
          success: true,
