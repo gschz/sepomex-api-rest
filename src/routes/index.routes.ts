@@ -7,7 +7,6 @@ import config from '@/config/config';
 import { Elysia } from 'elysia';
 
 import citiesRoutes from './cities.routes';
-import docsRoutes from './docs.routes';
 import postalRoutes from './postal.routes';
 import statesRoutes from './states.routes';
 
@@ -23,7 +22,6 @@ const {
 routes.use(postalRoutes);
 routes.use(statesRoutes);
 routes.use(citiesRoutes);
-routes.use(docsRoutes);
 
 /**
  * GET /
@@ -36,7 +34,7 @@ routes.get('/', () => {
       version: '2.0.0',
       status: NODE_ENV,
       baseUrl: API_URL,
-      documentation: `${API_URL}/docs`,
+      documentation: `${API_URL}/openapi`,
       rateLimit: {
          requests: RATE_LIMIT,
          windowMs: `${RATE_LIMIT_WINDOW / 60000} minutos`,

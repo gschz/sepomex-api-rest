@@ -7,6 +7,7 @@
 import config from '@/config/config';
 import { configureServer } from '@/config/server';
 import routes from '@/routes/index.routes';
+import { openapi } from '@elysiajs/openapi';
 import { Elysia, NotFoundError } from 'elysia';
 
 const { port: PORT, nodeEnv: NODE_ENV, apiUrl: API_URL } = config;
@@ -15,6 +16,33 @@ const app = new Elysia();
 
 // Configuración del servidor
 configureServer(app);
+
+// Documentación OpenAPI/Scalar
+app.use(
+   openapi({
+      path: '/api/v2/openapi',
+      scalar: {
+         // Plugin generates a relative spec url ('api/v2/openapi/json') which
+         // Scalar resolves against the page dir -> duplicated path 404. Absolute it.
+         url: '/api/v2/openapi/json',
+      },
+      documentation: {
+         info: {
+            title: 'SEPOMEX API REST',
+            description: 'API REST para consulta de códigos postales de México',
+            version: '2.0.0',
+         },
+         tags: [
+            {
+               name: 'Códigos Postales',
+               description: 'Consulta de códigos postales de México',
+            },
+            { name: 'Estados', description: 'Estados de México' },
+            { name: 'Ciudades', description: 'Ciudades de México' },
+         ],
+      },
+   }),
+);
 
 // Montaje de rutas principales
 app.use(routes);
@@ -54,7 +82,7 @@ ${NODE_ENV.toUpperCase()} Server is running!
  Modo: ${NODE_ENV.padEnd(28)}
  Puerto: ${PORT.toString().padEnd(26)}
  URL Base: ${API_URL.padEnd(24)}
- Documentación: ${`${API_URL}/docs`.padEnd(20)}
+ Documentación: ${`${API_URL}/openapi`.padEnd(20)}
     `);
    });
 }

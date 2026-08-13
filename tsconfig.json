@@ -9,9 +9,8 @@
       /* Estructura del Proyecto */
       "rootDir": "./src",
       "outDir": "./dist",
-      "baseUrl": ".",
       "paths": {
-         "@/*": ["src/*"]
+         "@/*": ["./src/*"]
       },
 
       /* Strict Type-Checking */
@@ -20,6 +19,7 @@
       "strictNullChecks": true,
       "strictFunctionTypes": true,
       "strictBindCallApply": true,
+      "noUnusedLocals": true,
 
       /* Módulos */
       "esModuleInterop": true,
