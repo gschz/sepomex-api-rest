@@ -30,7 +30,7 @@ Los datos originales provienen del Servicio Postal Mexicano (SEPOMEX) a través 
 ### Clonar el repositorio
 
 ```bash
-git clone https://github.com/hkxdv/sepomex-api-rest.git
+gh repo clone gschz/sepomex-api-rest
 cd sepomex-api-rest
 ```
 
@@ -76,22 +76,22 @@ GET /api/v2/openapi/json
 
 Todos los endpoints están bajo el prefijo `/api/v2`:
 
-| Método | Endpoint | Descripción |
-| --- | --- | --- |
-| GET | `/api/v2/postal/search?q={termino}` | Busca asentamientos por nombre |
-| GET | `/api/v2/postal/codigo/{codigo}` | Detalle por código postal (5 dígitos) |
-| GET | `/api/v2/postal/estado/{id}` | Códigos postales por estado (2 dígitos) |
-| GET | `/api/v2/postal/municipio/{estado}/{municipio}` | Códigos postales por estado y municipio (3 dígitos) |
-| GET | `/api/v2/postal/ciudad/{estado}/{ciudad}` | Códigos postales por estado y ciudad (2 dígitos) |
-| GET | `/api/v2/states/` | Todos los estados |
-| GET | `/api/v2/states/{id}` | Estado por ID |
-| GET | `/api/v2/states/{id}/cities` | Ciudades de un estado |
-| GET | `/api/v2/states/{id}/municipios` | Municipios de un estado |
-| GET | `/api/v2/states/{id}/asentamientos` | Asentamientos de un estado |
-| GET | `/api/v2/cities/` | Todas las ciudades |
-| GET | `/api/v2/cities/{estado}/{ciudad}` | Ciudad por estado y ciudad |
-| GET | `/api/v2/cities/{estado}/{ciudad}/colonias` | Colonias de una ciudad |
-| GET | `/api/v2/cities/{estado}/{ciudad}/codigos` | Códigos postales de una ciudad |
+| Método | Endpoint                                        | Descripción                                         |
+| ------ | ----------------------------------------------- | --------------------------------------------------- |
+| GET    | `/api/v2/postal/search?q={termino}`             | Busca asentamientos por nombre                      |
+| GET    | `/api/v2/postal/codigo/{codigo}`                | Detalle por código postal (5 dígitos)               |
+| GET    | `/api/v2/postal/estado/{id}`                    | Códigos postales por estado (2 dígitos)             |
+| GET    | `/api/v2/postal/municipio/{estado}/{municipio}` | Códigos postales por estado y municipio (3 dígitos) |
+| GET    | `/api/v2/postal/ciudad/{estado}/{ciudad}`       | Códigos postales por estado y ciudad (2 dígitos)    |
+| GET    | `/api/v2/states/`                               | Todos los estados                                   |
+| GET    | `/api/v2/states/{id}`                           | Estado por ID                                       |
+| GET    | `/api/v2/states/{id}/cities`                    | Ciudades de un estado                               |
+| GET    | `/api/v2/states/{id}/municipios`                | Municipios de un estado                             |
+| GET    | `/api/v2/states/{id}/asentamientos`             | Asentamientos de un estado                          |
+| GET    | `/api/v2/cities/`                               | Todas las ciudades                                  |
+| GET    | `/api/v2/cities/{estado}/{ciudad}`              | Ciudad por estado y ciudad                          |
+| GET    | `/api/v2/cities/{estado}/{ciudad}/colonias`     | Colonias de una ciudad                              |
+| GET    | `/api/v2/cities/{estado}/{ciudad}/codigos`      | Códigos postales de una ciudad                      |
 
 ### Búsqueda por nombre de asentamiento
 
