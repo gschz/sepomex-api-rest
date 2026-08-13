@@ -8,6 +8,7 @@
    "scripts": {
       "start": "bun dist/app.js",
       "dev": "bun --watch src/app.ts",
+      "test": "bun test",
       "build": "bun build --target node ./src/app.ts --outfile=dist/app.js && bun run copy-files",
       "copy-files": "copyfiles -u 1 src/**/*.{json,sql} dist/",
       "lint": "biome check .",
